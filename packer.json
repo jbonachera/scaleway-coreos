@@ -1,0 +1,32 @@
+{
+  "variables": {
+    "api_access_key": "${{env `SCW_API_ACCESS_KEY`}}",
+    "api_token": "${{env `SCW_API_TOKEN`}}"
+  },
+  "builders":
+  [
+    {
+      "type": "scaleway-volumesurrogate",
+      "access_key": "{{user `api_access_key`}}",
+      "token": "{{ user `api_token` }}",
+      "instance_type": "START1-M",
+      "vm_name": "coreos",
+      "region": "par1",
+      "source_image": "dec0cdd6-3ef5-47cf-a777-54a21f732b02",
+      "size": 50000000000
+    }
+  ],
+  "provisioners":
+  [
+    {
+      "type": "file",
+      "source": "ignition.json",
+      "destination": "/root/ignition.json"
+    },
+    {
+      "type": "shell",
+      "script": "./prepare-os.sh"
+    }
+  ]
+
+}
