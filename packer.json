@@ -12,7 +12,7 @@
       "instance_type": "START1-M",
       "vm_name": "coreos",
       "region": "par1",
-      "source_image": "dec0cdd6-3ef5-47cf-a777-54a21f732b02",
+      "source_image": "f21defd0-9fd9-4fb2-a29a-22844a6be3cd",
       "size": 50000000000
     }
   ],
