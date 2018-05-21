@@ -1,7 +1,7 @@
 {
   "variables": {
-    "api_access_key": "${{env `SCW_API_ACCESS_KEY`}}",
-    "api_token": "${{env `SCW_API_TOKEN`}}",
+    "api_access_key": "{{env `SCW_API_ACCESS_KEY`}}",
+    "api_token": "{{env `SCW_API_TOKEN`}}",
     "image_name": "coreos",
     "source_image": "f21defd0-9fd9-4fb2-a29a-22844a6be3cd",
     "region": "par1"
