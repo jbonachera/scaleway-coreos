@@ -1,0 +1,32 @@
+storage:
+  files:
+    - filesystem: "root"
+      path: "/opt/scaleway-coreos-custom-metadata"
+      mode: 0750
+      contents:
+        remote:
+          url: "https://github.com/jbonachera/scaleway-coreos-custom-metadata/releases/download/v0.0.1/scaleway-coreos-custom-metadata"
+passwd:
+systemd:
+  units:
+    - name: "coreos-metadata.service"
+      dropins:
+       - name: "use-script.conf"
+         contents: |
+           [Service]
+           # Empty ExecStart= prevents the previously defined ExecStart from running
+           ExecStart=
+           ExecStart=/opt/scaleway-coreos-custom-metadata
+    - name: scw-signal-booted.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Signal successful boot to Scaleway control plane
+        Requires=network-online.target
+        After=network.target network-online.target
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/bin/curl -s --fail -XPATCH -H 'Content-Type: application/json' http://169.254.42.42/state -d '{"state_detail": "booted"}' -o /dev/null
+        [Install]
+        WantedBy=basic.target
+

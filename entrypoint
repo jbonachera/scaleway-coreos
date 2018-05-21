@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo ":: transpiliting config.yaml"
+/usr/bin/container-linux-config-transpiler --in-file config.yaml > ignition.json
+if [ "$?" -gt 0 ]; then
+  exit 1
+fi
+echo ":: running packer"
+/bin/packer build -var-file=/srv/secrets.json packer.json
