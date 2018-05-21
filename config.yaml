@@ -1,5 +1,6 @@
+---
 passwd:
-  user:
+  users:
     - name: core
       groups:
         - sudo
@@ -11,28 +12,27 @@ storage:
       mode: 0750
       contents:
         remote:
-          url: "https://github.com/jbonachera/scaleway-coreos-custom-metadata/releases/download/v0.0.1/scaleway-coreos-custom-metadata"
-passwd:
+          url: "https://github.com/jbonachera/scaleway-coreos-custom-metadata/releases/download/v0.0.2/scaleway-coreos-custom-metadata"
 systemd:
   units:
     - name: "coreos-metadata.service"
       dropins:
-       - name: "use-script.conf"
-         contents: |
-           [Service]
-           # Empty ExecStart= prevents the previously defined ExecStart from running
-           ExecStart=
-           ExecStart=/opt/scaleway-coreos-custom-metadata
+        - name: "use-script.conf"
+          contents: |
+            [Service]
+            # Empty ExecStart= prevents the previously defined ExecStart from running
+            ExecStart=
+            ExecStartPre=/opt/scaleway-coreos-custom-metadata
+            ExecStart=/usr/bin/update-ssh-keys -u core
     - name: scw-signal-booted.service
       enabled: true
       contents: |
         [Unit]
         Description=Signal successful boot to Scaleway control plane
-        Requires=network-online.target
-        After=network.target network-online.target
+        Requires=network-online.target coreos-metadata.service
+        After=network.target network-online.target coreos-metadata.service
         [Service]
         Type=oneshot
         ExecStart=/usr/bin/curl -s --fail -XPATCH -H 'Content-Type: application/json' http://169.254.42.42/state -d '{"state_detail": "booted"}' -o /dev/null
         [Install]
         WantedBy=basic.target
-
