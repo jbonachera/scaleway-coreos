@@ -12,5 +12,11 @@ START1-M servers on scaleway.
 cp secrets.example.json secrets.json
 vim secrets.json
 docker build -t scaleway-coreos-builder .
-docker run -it -v $(pwd)/secrets.json:/srv/secrets.json scaleway-coreos-builder build -var-file=/srv/secrets.json packer.json
+docker run -it -v $(pwd)/secrets.json:/srv/secrets.json scaleway-coreos-builder
 ```
+
+A default CoreOS Ignition configuration is burned into the image.
+You can change this configuration by mouting your config.yaml at
+`/usr/local/src/app/config.yaml`, at run.
+
+It will be transpiled into JSON using https://github.com/coreos/container-linux-config-transpiler.

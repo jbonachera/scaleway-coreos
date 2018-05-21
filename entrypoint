@@ -5,5 +5,10 @@ echo ":: transpiliting config.yaml"
 if [ "$?" -gt 0 ]; then
   exit 1
 fi
+secrets_file_opt=""
+if [ -r /srv/secrets.json ]; then
+secrets_file_opt="-var-file=/srv/secrets.json"
+fi
+
 echo ":: running packer"
-/bin/packer build -var-file=/srv/secrets.json packer.json
+/bin/packer build $secrets_file_opt packer.json

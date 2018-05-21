@@ -1,6 +1,6 @@
 FROM alpine as plugin
 RUN apk -U add curl && rm -rf /var/cache/apk/*
-ENV VERSION=v0.0.3
+ENV VERSION=v0.2.0
 ENV URL=https://github.com/jbonachera/packer-scaleway-plugin/releases/download/$VERSION/packer-builder-scaleway-volumesurrogate
 RUN curl -sLo /usr/bin/packer-builder-scaleway-volumesurrogate $URL
 RUN chmod +x /usr/bin/packer-builder-scaleway-volumesurrogate
@@ -13,8 +13,12 @@ RUN curl -sLo /usr/bin/container-linux-config-transpiler $URL && \
     chmod +x /usr/bin/container-linux-config-transpiler
 
 FROM hashicorp/packer
+WORKDIR /usr/local/src/app
 COPY --from=plugin /usr/bin/packer-builder-scaleway-volumesurrogate packer-builder-scaleway-volumesurrogate
 COPY --from=transpiler /usr/bin/container-linux-config-transpiler /usr/bin/container-linux-config-transpiler
-COPY . .
+COPY packer.json .
+COPY config.yaml .
+COPY prepare-os.sh .
+COPY entrypoint /bin/entrypoint
 ENV CHECKPOINT_DISABLE=1
-ENTRYPOINT ["/entrypoint"]
+ENTRYPOINT ["/bin/entrypoint"]
