@@ -1,3 +1,9 @@
+passwd:
+  user:
+    - name: core
+      groups:
+        - sudo
+        - docker
 storage:
   files:
     - filesystem: "root"
