@@ -13,10 +13,15 @@ CoreOS installation to run on /dev/vda.
 
 ## Usage
 
-``` cp secrets.example.json secrets.json vim secrets.json docker build -t
-scaleway-coreos-builder .  docker run -it \ -v
-$(pwd)/secrets.json:/srv/secrets.json \ -v $HOME/.scwrc:/root/.scwrc \
-scaleway-coreos-builder ```
+```
+cp secrets.example.json secrets.json
+vim secrets.json
+docker build -t scaleway-coreos-builder .
+docker run -it \
+  -v $(pwd)/secrets.json:/srv/secrets.json \
+  -v $HOME/.scwrc:/root/.scwrc \
+  scaleway-coreos-builder
+```
 
 A default CoreOS Ignition configuration is burned into the image.  You can
 change this configuration by mounting your config.yaml at
