@@ -12,7 +12,7 @@ storage:
       mode: 0750
       contents:
         remote:
-          url: "https://github.com/jbonachera/scaleway-coreos-custom-metadata/releases/download/v0.0.2/scaleway-coreos-custom-metadata"
+          url: "https://github.com/jbonachera/scaleway-coreos-custom-metadata/releases/download/v0.0.3/scaleway-coreos-custom-metadata"
 systemd:
   units:
     - name: "coreos-metadata.service"
