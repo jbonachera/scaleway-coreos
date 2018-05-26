@@ -1,26 +1,39 @@
 {
   "variables": {
+    "uuid": "{{ uuid }}",
     "api_access_key": "{{env `SCW_API_ACCESS_KEY`}}",
     "api_token": "{{env `SCW_API_TOKEN`}}",
     "image_name": "coreos",
-    "source_image": "f21defd0-9fd9-4fb2-a29a-22844a6be3cd",
+    "source_image": "67375eb1-f14d-4f02-bb42-6119cecbde51",
+    "rescue_bootscript": "bf4cfb66-a2f8-4f77-9b1c-665cdfdf208e",
     "region": "par1"
   },
   "builders":
   [
     {
-      "type": "scaleway-volumesurrogate",
-      "access_key": "{{user `api_access_key`}}",
-      "token": "{{ user `api_token` }}",
-      "instance_type": "START1-M",
-      "vm_name": "{{ user `image_name`}}",
+      "type": "scaleway",
+      "api_access_key": "{{user `api_access_key`}}",
+      "api_token": "{{ user `api_token` }}",
+      "commercial_type": "START1-XS",
+      "image_name": "{{ user `image_name`}}",
+      "ssh_username": "root",
+      "ssh_agent_auth": false,
       "region": "{{ user `region` }}",
-      "source_image": "{{ user `source_image` }}",
-      "size": 50000000000
+      "image": "{{ user `source_image` }}",
+      "server_name": "packer-{{ user `uuid` }}"
     }
   ],
   "provisioners":
   [
+    {
+      "type": "shell-local",
+      "command": "scw _patch packer-{{user `uuid` }} bootscript={{ user `rescue_bootscript` }}"
+    },
+    {
+      "type": "shell",
+      "inline": ["reboot"],
+      "expect_disconnect": true
+    },
     {
       "type": "file",
       "source": "ignition.json",
