@@ -5,4 +5,4 @@ run:: build
 	docker run -it \
   -v $$(pwd)/secrets.json:/srv/secrets.json \
   -v $$HOME/.scwrc:/root/.scwrc \
-  scaleway-coreos
+  jbonachera/scaleway-coreos
