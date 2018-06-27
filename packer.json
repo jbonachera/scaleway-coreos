@@ -4,6 +4,7 @@
     "api_access_key": "{{env `SCW_API_ACCESS_KEY`}}",
     "api_token": "{{env `SCW_API_TOKEN`}}",
     "image_name": "coreos",
+    "image_name_suffix": "-{{ uuid }}",
     "source_image": "67375eb1-f14d-4f02-bb42-6119cecbde51",
     "rescue_bootscript": "bf4cfb66-a2f8-4f77-9b1c-665cdfdf208e",
     "region": "par1"
@@ -15,7 +16,7 @@
       "api_access_key": "{{user `api_access_key`}}",
       "api_token": "{{ user `api_token` }}",
       "commercial_type": "START1-XS",
-      "image_name": "{{ user `image_name`}}",
+      "image_name": "{{ user `image_name`}}{{ user `image_name_suffix` }}",
       "ssh_username": "root",
       "ssh_agent_auth": false,
       "region": "{{ user `region` }}",
