@@ -1,4 +1,3 @@
-FROM scaleway/cli as scw
 FROM alpine as transpiler
 RUN apk -U add curl && rm -rf /var/cache/apk/*
 ENV VERSION=v0.9.0
@@ -7,15 +6,18 @@ RUN curl -sLo /usr/bin/container-linux-config-transpiler $URL && \
     chmod +x /usr/bin/container-linux-config-transpiler
 
 FROM golang:alpine as builder
-# build packer until https://github.com/hashicorp/packer/issues/6232 is released
+# build packer until https://github.com/hashicorp/packer/issues/6232
+# and https://github.com/hashicorp/packer/pull/6439 are released.
 RUN apk -U add git && rm -rf /var/cache/apk/*
-RUN go get github.com/hashicorp/packer
+WORKDIR $GOPATH/src/github.com/hashicorp/packer
+RUN git clone --depth=1 https://github.com/jbonachera/packer.git .
+RUN go install ./...
 RUN cp $GOPATH/bin/packer /bin/packer
 
 
-FROM hashicorp/packer
+FROM alpine
 WORKDIR /usr/local/src/app
-COPY --from=scw /bin/scw /usr/bin/scw
+RUN apk -U add ca-certificates && rm -rf /var/cache/apk/*
 COPY --from=builder /bin/packer /bin/packer
 COPY --from=transpiler /usr/bin/container-linux-config-transpiler /usr/bin/container-linux-config-transpiler
 COPY packer.json .

@@ -11,4 +11,5 @@ secrets_file_opt="-var-file=/srv/secrets.json"
 fi
 
 echo ":: running packer"
+/bin/packer version
 /bin/packer build $secrets_file_opt packer.json

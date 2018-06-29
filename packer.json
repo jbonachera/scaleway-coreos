@@ -21,20 +21,12 @@
       "ssh_agent_auth": false,
       "region": "{{ user `region` }}",
       "image": "{{ user `source_image` }}",
-      "server_name": "packer-{{ user `uuid` }}"
+      "server_name": "packer-{{ user `uuid` }}",
+      "bootscript": "{{ user `rescue_bootscript` }}"
     }
   ],
   "provisioners":
   [
-    {
-      "type": "shell-local",
-      "command": "scw _patch packer-{{user `uuid` }} bootscript={{ user `rescue_bootscript` }}"
-    },
-    {
-      "type": "shell",
-      "inline": ["reboot"],
-      "expect_disconnect": true
-    },
     {
       "type": "file",
       "source": "ignition.json",
