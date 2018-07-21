@@ -5,14 +5,6 @@ passwd:
       groups:
         - sudo
         - docker
-storage:
-  files:
-    - filesystem: "root"
-      path: "/opt/scaleway-coreos-custom-metadata"
-      mode: 0750
-      contents:
-        remote:
-          url: "https://github.com/jbonachera/scaleway-coreos-custom-metadata/releases/download/v0.0.11/scaleway-coreos-custom-metadata"
 systemd:
   units:
     - name: "coreos-metadata-sshkeys@.service"
@@ -22,7 +14,7 @@ systemd:
           contents: |
             [Service]
             ExecStart=
-            ExecStart=/opt/scaleway-coreos-custom-metadata ssh-keys %i
+            ExecStart=/usr/share/oem/scaleway-coreos-custom-metadata ssh-keys %i
     - name: "coreos-metadata.service"
       dropins:
         - name: "use-script.conf"
@@ -30,4 +22,4 @@ systemd:
             [Service]
             # Empty ExecStart= prevents the previously defined ExecStart from running
             ExecStart=
-            ExecStartPre=/opt/scaleway-coreos-custom-metadata
+            ExecStartPre=/usr/share/oem/scaleway-coreos-custom-metadata
