@@ -7,6 +7,9 @@ URL="https://raw.githubusercontent.com/coreos/init/master/bin/coreos-install"
 
 MD_URL="https://github.com/jbonachera/scaleway-coreos-custom-metadata/releases/download/${MD_VERSION}/scaleway-coreos-custom-metadata"
 
+# Make some space
+apt remove -y vim libpython3.5 vim-common vim-runtime
+
 apt update
 apt install -y wget bzip2
 rm -rf /var/cache/apt/*
