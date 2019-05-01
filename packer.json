@@ -5,7 +5,7 @@
     "api_token": "{{env `SCW_API_TOKEN`}}",
     "image_name": "coreos",
     "image_name_suffix": "-{{ uuid }}",
-    "source_image": "b381b2bf-804a-4b12-91f6-9f4ff273462f",
+    "source_image": "f974feac-abae-4365-b988-8ec7d1cec10d",
     "rescue_bootscript": "bf4cfb66-a2f8-4f77-9b1c-665cdfdf208e",
     "region": "par1",
     "instance_type": "DEV1-S"
