@@ -15,7 +15,7 @@
       "type": "scaleway",
       "api_access_key": "{{user `api_access_key`}}",
       "api_token": "{{ user `api_token` }}",
-      "commercial_type": "START1-XS",
+      "commercial_type": "{{ user `instance_type` }}",
       "image_name": "{{ user `image_name`}}{{ user `image_name_suffix` }}",
       "ssh_username": "root",
       "ssh_agent_auth": false,
