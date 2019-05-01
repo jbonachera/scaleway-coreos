@@ -7,7 +7,8 @@
     "image_name_suffix": "-{{ uuid }}",
     "source_image": "67375eb1-f14d-4f02-bb42-6119cecbde51",
     "rescue_bootscript": "bf4cfb66-a2f8-4f77-9b1c-665cdfdf208e",
-    "region": "par1"
+    "region": "par1",
+    "instance_type": "DEV1-S"
   },
   "builders":
   [
