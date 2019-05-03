@@ -1,7 +1,7 @@
 {
   "variables": {
     "uuid": "{{ uuid }}",
-    "api_access_key": "{{env `SCW_API_ACCESS_KEY`}}",
+    "organization_id": "{{env `SCW_API_ACCESS_KEY`}}",
     "api_token": "{{env `SCW_API_TOKEN`}}",
     "image_name": "coreos",
     "image_name_suffix": "-{{ uuid }}",
@@ -14,7 +14,7 @@
   [
     {
       "type": "scaleway",
-      "api_access_key": "{{user `api_access_key`}}",
+      "organization_id": "{{user `organization_id`}}",
       "api_token": "{{ user `api_token` }}",
       "commercial_type": "{{ user `instance_type` }}",
       "image_name": "{{ user `image_name`}}{{ user `image_name_suffix` }}",

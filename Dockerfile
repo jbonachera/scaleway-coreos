@@ -5,15 +5,7 @@ ENV URL=https://github.com/coreos/container-linux-config-transpiler/releases/dow
 RUN curl -sLo /usr/bin/container-linux-config-transpiler $URL && \
     chmod +x /usr/bin/container-linux-config-transpiler
 
-FROM golang:alpine as builder
-# build packer until https://github.com/hashicorp/packer/issues/6232
-# and https://github.com/hashicorp/packer/pull/6439 are released.
-RUN apk -U add git && rm -rf /var/cache/apk/*
-WORKDIR $GOPATH/src/github.com/hashicorp/packer
-RUN git clone --depth=1 https://github.com/jbonachera/packer.git .
-RUN go install ./...
-RUN cp $GOPATH/bin/packer /bin/packer
-
+FROM hashicorp/packer:light as builder
 
 FROM alpine
 WORKDIR /usr/local/src/app
