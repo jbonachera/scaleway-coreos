@@ -30,6 +30,11 @@
   [
     {
       "type": "file",
+      "source": "base.json",
+      "destination": "/root/base.json"
+    },
+    {
+      "type": "file",
       "source": "ignition.json",
       "destination": "/root/ignition.json"
     },

@@ -14,6 +14,7 @@ COPY --from=builder /bin/packer /bin/packer
 COPY --from=transpiler /usr/bin/container-linux-config-transpiler /usr/bin/container-linux-config-transpiler
 COPY packer.json .
 COPY config.yaml .
+COPY base.yaml .
 COPY prepare-os.sh .
 COPY entrypoint /bin/entrypoint
 ENV CHECKPOINT_DISABLE=1

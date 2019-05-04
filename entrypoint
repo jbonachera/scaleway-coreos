@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo ":: transpiliting base.yaml"
+/usr/bin/container-linux-config-transpiler --in-file base.yaml > base.json
 echo ":: transpiliting config.yaml"
 /usr/bin/container-linux-config-transpiler --in-file config.yaml > ignition.json
 if [ "$?" -gt 0 ]; then

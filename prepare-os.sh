@@ -22,4 +22,6 @@ mkdir /mnt/oem
 mount /dev/vda6 /mnt/oem
 curl -sLo /mnt/oem/scaleway-coreos-custom-metadata $MD_URL
 chmod +x /mnt/oem/scaleway-coreos-custom-metadata
+mkdir /mnt/oem/base
+cp /root/base.json /mnt/oem/base/base.ign
 umount /dev/vda6
