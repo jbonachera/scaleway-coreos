@@ -2,7 +2,7 @@
 
 set -e
 
-MD_VERSION="v0.0.13"
+MD_VERSION="v0.0.15"
 URL="https://raw.githubusercontent.com/coreos/init/master/bin/coreos-install"
 
 MD_URL="https://github.com/jbonachera/scaleway-coreos-custom-metadata/releases/download/${MD_VERSION}/scaleway-coreos-custom-metadata"
